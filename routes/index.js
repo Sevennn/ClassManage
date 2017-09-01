@@ -41,7 +41,7 @@ router.get('/main', function(req, res, next) {
 router.get('/submitform', function(req, res, next) {
     database.getFormname(req.query.formid, function(name) {
         xlReader.MakeJade(name, function(data) {
-            res.render('submit', { keys: data, formId: req.query.formid, formName: name, });
+            res.render('submit', { keys: data, formId: req.query.formid, formName: name });
         });
     })
 })
