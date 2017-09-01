@@ -1,0 +1,39 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Identity
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/signin.css')
+  body
+    .container.content
+      | '
+      .middler
+        h1 软件工程
+        h2 1505
+        form
+          .form-group
+            label(for='stu-ID') Student Id
+            input#stu-ID.form-control(type='text', placeholder='ID')
+            label(for='stu-PSW') Student PassWord
+            input#stu-PSW.form-control(type='password', placeholder='初始为学号')
+          button.btn.btn-default(type='button') sign in
+  script(src='/jquery/dist/jquery.min.js')
+  script(src='/bootstrap/dist/js/bootstrap.min.js')
+  script.
+    $('.btn').click(function(){
+      $.post('signin', {'id': $('#stu-ID').val(), 'password':$('#stu-PSW').val()}, function(res){
+        console.log(res);
+        if (res['success']) {
+          window.location.href='/main';
+        } else {
+          alert(res['error']);
+        }
+      })
+    })
+    $(document).keydown(function(e){
+      if (e.which == 13)
+        $('.btn').click();
+    })
+

@@ -1,0 +1,22 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Identity
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/FormStyle.css')
+  body
+    .container
+      h1 #{formName}
+      form(action='/submitform?formid=#{formId}', method='post')
+        each item,i in keys
+          .form-group
+            label(for=i) #{item}
+            input.form-control(id=i,type='text', placeholder=item, name=item)
+        button#submit-btn.btn.btn-default(type='submit') submit
+    script(src='/jquery/dist/jquery.min.js')
+    script.
+      $('#submit-btn').click(function() {
+      $('form').submit();
+      })
