@@ -19,3 +19,13 @@ body {
     box-shadow: 0 0 2px 2px white;
     color: white;
 }
+
+.dropdown-menu li {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-menu li:hover {
+    overflow: visible;
+}

@@ -29,6 +29,9 @@ html
                 each form in arr
                   li
                     a(href='submitform?formid=#{form.id}') #{form.fileName}
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='/userinfo' data-toggle="tooltip" data-placement="bottom" title="Strongly Recommend") Reset Password
     .container-fluid
       .row
         if success
@@ -40,3 +43,7 @@ html
 
     script(src='/jquery/dist/jquery.min.js')
     script(src='/bootstrap/dist/js/bootstrap.js')
+    script.
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      });

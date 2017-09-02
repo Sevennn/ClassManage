@@ -11,7 +11,7 @@ module.exports = {
             var collection = db.collection('form');
             var data = [{
                 'fileName': formName,
-                'id': (new Date()).getTime()
+                'id': string((new Date()).getTime())
             }];
             collection.insert(data, function(err, result) {
                 if (err) {
@@ -48,7 +48,7 @@ module.exports = {
             }
             var collection = db.collection('form');
             var filter = {
-                'id': Number(formid)
+                'id': formid
             };
             console.log(formid);
             collection.find(filter).toArray(function(err, doc) {
@@ -111,8 +111,8 @@ module.exports = {
             console.log(user);
             var collection = db.collection('user');
             var filter = {
-                'userid': Number(user.id),
-                'password': Number(user.password)
+                'userid': user.id,
+                'password': user.password
             }
             collection.find(filter).toArray(function(err, res) {
                 console.log(res);
@@ -129,8 +129,8 @@ module.exports = {
             console.log(user);
             var collection = db.collection('admin');
             var filter = {
-                'userid': Number(user.id),
-                'password': Number(user.password)
+                'userid': user.id,
+                'password': user.password
             }
             collection.find(filter).toArray(function(err, res) {
                 console.log(res);
@@ -138,4 +138,25 @@ module.exports = {
             })
         })
     },
+    UpdatePsw: function(userid, oldPsw, newPsw, cb) {
+        MongoClient.connect(db_con, function(err, db) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            var collection = db.collection('user');
+            var filter = {
+                'userid': userid,
+                'password': oldPsw
+            }
+            collection.update(filter, { $set: { 'password': newPsw } }, function(err, res) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                cb(res);
+            })
+        })
+    }
 }

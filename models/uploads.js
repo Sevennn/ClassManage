@@ -5,7 +5,7 @@ var storage = multer.diskStorage({
         var fileFormat = file.originalname;
         cb(null, fileFormat);
     },
-    destination: "public/data/"
+    destination: "public/data/modules"
 })
 
 var upload = multer({

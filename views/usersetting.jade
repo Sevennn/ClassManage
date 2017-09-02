@@ -1,0 +1,91 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Class 5
+    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/main.css')
+    style.
+      .middler {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: 200px;
+        width: 50%;
+      }
+      label {
+        color : white;
+      }
+      .middler button {
+          background-color: #333;
+          color: white;
+      }
+
+      .middler button:hover {
+          background-color: #333;
+          box-shadow: 0 0 2px 2px white;
+          color: white;
+      }
+  body
+    .container
+      .middler
+        form#update-form(action='/updatepsw', method='POST')
+          .form-group
+            label(for='old-PSW') Old Psw
+            input#old-PSW.form-control(type='password', name='oldpassword' placeholder='Old Password' data-container="body" data-toggle="popover" data-placement="top" data-content="Wrong!")
+            label(for='new-PSW') New PassWord
+            input#new-PSW.form-control(type='password', name='password' placeholder='longer or equal to six characters' data-container="body" data-toggle="popover" data-placement="bottom" data-content="too short!")
+          button#form-btn.btn.btn-default(type='button') Reset
+
+  script(src='/jquery/dist/jquery.min.js')
+  script(src='/bootstrap/dist/js/bootstrap.min.js')
+  script.
+    var tool = {
+      toggle : false,
+      show : function() {
+        if (this.toggle)
+          return;
+        this.toggle = true;
+        $('#new-PSW').popover('show');
+      },
+      hide : function() {
+        if (!this.toggle)
+          return;
+        this.toggle = false;
+        $('#new-PSW').popover('hide');
+      },
+      oldPass : false,
+      newPass : false
+    }
+    $('#old-PSW').blur(function(){
+      tool.oldPass = false;
+      $.post('/checkpsw',{password: $(this).val()}, function(res){
+        console.log(res);
+        if (res != "pass") {
+          $('#old-PSW').popover('show');
+          tool.oldPass = false;
+        }
+        else {
+          $('#old-PSW').popover('hide');
+          tool.oldPass = true;
+        }
+      });
+    });
+    $('#new-PSW').bind('input propertychange', function(){
+        if($(this).val().length >= 6) {
+          tool.hide();
+          tool.newPass = true;
+        }
+        else {
+          tool.show();
+          tool.newPass = false;
+        }
+    })
+    $('#form-btn').click(function(){
+      if (tool.oldPass && tool.newPass)
+        $('#update-form').submit();
+    });

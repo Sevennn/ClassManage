@@ -55,5 +55,25 @@ router.post('/submitform', function(req, res, next) {
         res.redirect('/main');
     })
 });
+router.get('/userinfo', function(req, res, next) {
+    res.render('usersetting');
+});
 
+router.post('/checkpsw', function(req, res, next) {
+    database.UserLogin({ id: req.session.userid, password: req.body.password }, function(re) {
+        console.log(re);
+        if (re.length > 0) {
+            res.send("pass");
+        } else
+            res.send("fail");
+    });
+});
+
+router.post('/updatepsw', function(req, res, next) {
+    database.UpdatePsw(req.session.userid, req.body.oldpassword, req.body.password, function(result) {
+        console.log(result);
+        delete req.session.userid;
+        res.redirect('/');
+    })
+})
 module.exports = router;
