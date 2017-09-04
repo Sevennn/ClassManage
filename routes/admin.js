@@ -40,17 +40,28 @@ router.get('/formupload', function(req, res, next) {
     // if (!req.session.adminid)
     //     res.redirect('/admin');
     // else
-    res.render('upload');
+    res.render('upload', { type: "excel", excel: true });
 })
-router.post('/formupload', upload.single('form'), function(req, res) {
-
+router.post('/formupload', upload.single('excel'), function(req, res, next) {
     console.log(req.file);
-    var name = req.file.originalname;
-    database.insertForm(name, function(re) {
-        console.log(re);
-        req.session.success = true;
-        res.redirect('/admin/main');
-    })
+    if (req.file) {
+        var formname = req.file.originalname;
+        console.log(formname);
+        database.InsertForm(formname, req.file.filename, function(re) {
+            // req.session.file.success = true;
+            console.log(re);
+            res.json({ error: '' });
+        });
+    } else {
+        // req.session.file.success = false;
+        console.log('upload failed');
+        res.json({
+            error: 'file upload failed, check your file type or size',
+            initialPreview: [],
+            initialPreviewConfig: [],
+            initialPreviewThumbTags: []
+        });
+    }
 })
 router.get('/downloadform', function(req, res, next) {
     // if (!req.session.adminid)

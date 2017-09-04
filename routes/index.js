@@ -6,7 +6,7 @@ var session = require("express-session");
 
 router.get('/', function(req, res, next) {
     if (req.session.userid)
-        delete req.session.userid;
+        res.redirect('/main');
     res.render('signin');
 })
 router.post('/signin', function(req, res, next) {
@@ -30,7 +30,7 @@ router.all('*', function(req, res, next) {
 router.get('/main', function(req, res, next) {
     // database.insertForm('ex', function(res) { console.log(res) });
     // res.render('submitForm');
-    database.getForms(function(arr) {
+    database.GetForms(function(arr) {
         var success = false;
         if (req.session.success == true)
             success = true;
@@ -41,7 +41,7 @@ router.get('/main', function(req, res, next) {
 router.get('/submitform', function(req, res, next) {
     database.getFormname(req.query.formid, function(name) {
         xlReader.MakeJade(name, function(data) {
-            res.render('submit', { keys: data, formId: req.query.formid, formName: name });
+            res.render('submit', { keys: data, formId: req.query.formid, formName: data.fileName });
         });
     })
 })
@@ -76,4 +76,15 @@ router.post('/updatepsw', function(req, res, next) {
         res.redirect('/');
     })
 })
+
+router.get('/scholarpage', function(req, res, next) {
+    database.GetScholar(req.session.userid, function(data) {
+        res.render('scholar', { info: data[0], comment: false });
+    })
+});
+router.get('/getfile', function(req, res, next) {
+    database.GetFile(req.query.fileid, function(path) {
+        res.redirect(path);
+    })
+});
 module.exports = router;
