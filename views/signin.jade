@@ -4,8 +4,9 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title Identity
-    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/signin.css')
+    link(rel='stylesheet', href='vendor/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='vendor/stylesheets/signin.css')
+    link(rel='stylesheet', href='/stylesheets/default.css')
   body
     .container.content
       | '
@@ -19,8 +20,8 @@ html
             label(for='stu-PSW') Student PassWord
             input#stu-PSW.form-control(type='password', placeholder='初始为学号')
           button.btn.btn-default(type='button') sign in
-  script(src='/jquery/dist/jquery.min.js')
-  script(src='/bootstrap/dist/js/bootstrap.min.js')
+  script(src='vendor/jquery/dist/jquery.min.js')
+  script(src='vendor/bootstrap/dist/js/bootstrap.min.js')
   script.
     $('.btn').click(function(){
       $.post('signin', {'id': $('#stu-ID').val(), 'password':$('#stu-PSW').val()}, function(res){

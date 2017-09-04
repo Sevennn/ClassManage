@@ -2,7 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 var db_con = 'mongodb://localhost:27017/class_db';
 var ExcelWriter = require("./excelHandler");
 module.exports = {
-    insertForm: function(formName, callback) {
+    InsertForm: function(fileName, formName, callback) {
         MongoClient.connect(db_con, function(err, db) {
             if (err) {
                 console.log(err);
@@ -10,20 +10,23 @@ module.exports = {
             }
             var collection = db.collection('form');
             var data = [{
-                'fileName': formName,
-                'id': string((new Date()).getTime())
+                'formname': formName,
+                'filename': fileName,
+                'fileid': ((new Date()).getTime()) + ''
             }];
+            console.log(data);
             collection.insert(data, function(err, result) {
                 if (err) {
                     console.log(err);
                     return;
                 }
+                console.log(result);
                 db.close();
                 callback(result);
             })
         })
     },
-    getFormid: function(formName, callback) {
+    GetFormid: function(formName, callback) {
         MongoClient.connect(db_con, function(err, db) {
             if (err) {
                 console.log(err);
@@ -31,16 +34,16 @@ module.exports = {
             }
             var collection = db.collection('form');
             var filter = {
-                'fileName': formName
+                'formname': formName
             };
             collection.find(filter).toArray(function(err, doc) {
                 console.log(doc);
-                callback(doc[0]['_id']);
                 db.close();
+                callback(doc[0]['_id']);
             });
         })
     },
-    getFormname: function(formid, callback) {
+    GetFormname: function(formid, callback) {
         MongoClient.connect(db_con, function(err, db) {
             if (err) {
                 console.log(err);
@@ -48,17 +51,17 @@ module.exports = {
             }
             var collection = db.collection('form');
             var filter = {
-                'id': formid
+                'fileid': formid
             };
             console.log(formid);
             collection.find(filter).toArray(function(err, doc) {
                 console.log(doc);
-                callback(doc[0]['fileName']);
                 db.close();
+                callback(doc[0]['formname']);
             });
         })
     },
-    getForms: function(callback) {
+    GetForms: function(callback) {
         MongoClient.connect(db_con, function(err, db) {
             if (err) {
                 console.log(err);
@@ -67,8 +70,8 @@ module.exports = {
             var collection = db.collection('form');
             collection.find().toArray(function(err, doc) {
                 console.log(doc);
-                callback(doc);
                 db.close();
+                callback(doc);
             });
         })
     },
@@ -81,6 +84,7 @@ module.exports = {
             var collection = db.collection('userData');
             collection.insert(data, function(err, res) {
                 console.log(res);
+                db.close();
                 callback(res);
             });
         })
@@ -93,11 +97,12 @@ module.exports = {
             }
             var collection = db.collection('userData');
             var filter = {
-                'formid': id
+                'fileid': id
             }
             console.log(id);
             collection.find(filter).toArray(function(err, res) {
                 console.log(res);
+                db.close();
                 ExcelWriter.MakeFile(res, cb);
             })
         })
@@ -109,13 +114,14 @@ module.exports = {
                 return;
             }
             console.log(user);
-            var collection = db.collection('user');
+            var collection = db.collection('userInfo');
             var filter = {
                 'userid': user.id,
                 'password': user.password
             }
             collection.find(filter).toArray(function(err, res) {
                 console.log(res);
+                db.close();
                 cb(res);
             })
         })
@@ -134,6 +140,7 @@ module.exports = {
             }
             collection.find(filter).toArray(function(err, res) {
                 console.log(res);
+                db.close();
                 cb(res);
             })
         })
@@ -155,8 +162,75 @@ module.exports = {
                     console.log(err);
                     return;
                 }
+                db.close();
                 cb(res);
             })
         })
+    },
+    GetScholar: function(userid, cb) {
+        MongoClient.connect(db_con, function(err, db) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            var collection = db.collection('scholarshipInfo');
+            collection.find({ userid: userid }).toArray(function(err, res) {
+                console.log(res);
+                db.close();
+                cb(res);
+            })
+        });
+    },
+    InsertFile: function(fileName, filePath, fileid, cb) {
+        MongoClient.connect(db_con, function(err, db) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            var collection = db.collection('file');
+            var fileid = ((new Date()).getTime()) + '';
+            var file = {
+                filename: fileName,
+                fileid: fileid,
+                filepath: filePath
+            };
+            collection.insert(file, function(err, res) {
+                console.log(res);
+                db.close();
+                callback(res, fileid);
+            });
+        });
+    },
+    CreateScholarInfo: function(fileid, userid, cb) {
+        MongoClient.connect(db_con, function(err, db) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            var collection = db.collection('scholarshipInfo');
+            var data = {
+                fileid: fileid,
+                userid: userid
+            };
+            collection.insert(data, function(err, res) {
+                console.log(res);
+                db.close();
+                callback(res);
+            });
+        });
+    },
+    GetFile: function(fileid, cb) {
+        MongoClient.connect(db_con, function(err, db) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            var collection = db.collection('file');
+            collection.find({ fileid: fileid }).toArray(function(err, res) {
+                console.log(res);
+                db.close();
+                cb(res[0]['filepath']);
+            })
+        });
     }
 }

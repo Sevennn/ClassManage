@@ -4,8 +4,9 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title Class 5
-    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='vendor/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/main.css')
+    link(rel='stylesheet', href='/stylesheets/default.css')
     style.
       .middler {
         position: absolute;
@@ -41,8 +42,8 @@ html
             input#new-PSW.form-control(type='password', name='password' placeholder='longer or equal to six characters' data-container="body" data-toggle="popover" data-placement="bottom" data-content="too short!")
           button#form-btn.btn.btn-default(type='button') Reset
 
-  script(src='/jquery/dist/jquery.min.js')
-  script(src='/bootstrap/dist/js/bootstrap.min.js')
+  script(src='vendor/jquery/dist/jquery.min.js')
+  script(src='vendor/bootstrap/dist/js/bootstrap.min.js')
   script.
     var tool = {
       toggle : false,

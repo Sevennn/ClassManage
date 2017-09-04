@@ -1,0 +1,110 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' , content='IE=edge' />
+    <meta name='viewport' , content='width=device-width, initial-scale=1' />
+    <link rel="stylesheet" href="../public/vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../public/stylesheets/Adminuser.css" />
+    <link rel="stylesheet" href="../public/stylesheets/default.css" />
+    <title>人员管理</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#btn-hide" aria-expanded="false">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="#">
+                    Class Manage
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="btn-hide">
+                <button type="button" class="btn btn-default navbar-btn navbar-right" style="background-color:#222; color: white"><span class="glyphicon glyphicon-plus" aria-hidden="false"></span><br/>Add</button>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <ul class="user-list list-group">
+                <li class="user-container list-item">
+                    <div class="user-info">
+                        <div class="user-info-col">
+                            <span class="user-name">张大牛</span><br/>
+                            <span class="user-id">12345678</span>
+                        </div>
+                        <div class="user-info-col">
+                            <span class="role">班级</span><br/>
+                            <span>5</span>
+                        </div>
+                        <div class="user-info-col">
+                            <span class="role">角色</span><br/>
+                            <span>学生</span>
+                        </div>
+                        <div class="user-info-col btn-container">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                </button>
+                            <ul class="dropdown-menu">
+                                <li><span class="delete" data-toggle="modal" data-target="#myDelete">删除</span></li>
+                                <li><span class="modify" data-toggle="modal" data-target="#myModify">修改权限</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+    <div class="modal fade" id="myModify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <select name="role" id="select-role" class="form-control">
+                        <option>学生</option>
+                        <option>老师</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" style="display: none" id="SelectedItem"></a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id='modify-btn'>Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>确认删除此同学？</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" style="display: none" id="SelectedItem"></a>
+                    <button type="button" class="btn btn-primary" id='deleta-btn'>确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+    <script src="../public/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../public/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../public/javascripts/admin-manage.js"></script>
+</body>
+
+</html>

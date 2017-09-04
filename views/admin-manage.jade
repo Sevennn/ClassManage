@@ -1,0 +1,80 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', ,='', content='IE=edge')
+    meta(name='viewport', ,='', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='../public/vendor/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='../public/stylesheets/Adminuser.css')
+    link(rel='stylesheet', href='../public/stylesheets/default.css')
+    title 人员管理
+  body
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#btn-hide', aria-expanded='false')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#')
+            | Class Manage
+        #btn-hide.collapse.navbar-collapse
+          button.btn.btn-default.navbar-btn.navbar-right(type='button', style='background-color:#222; color: white')
+            span.glyphicon.glyphicon-plus(aria-hidden='false')
+            br
+            | Add
+    .container-fluid
+      .row
+        ul.user-list.list-group
+          li.user-container.list-item
+            .user-info
+              .user-info-col
+                span.user-name 张大牛
+                br
+                span.user-id 12345678
+              .user-info-col
+                span.role 班级
+                br
+                span 5
+              .user-info-col
+                span.role 角色
+                br
+                span 学生
+              .user-info-col.btn-container
+                button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                  span.glyphicon.glyphicon-cog(aria-hidden='true')
+                ul.dropdown-menu
+                  li
+                    span.delete(data-toggle='modal', data-target='#myDelete') 删除
+                  li
+                    span.modify(data-toggle='modal', data-target='#myModify') 修改权限
+    #myModify.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Modal title
+          .modal-body
+            select#select-role.form-control(name='role')
+              option 学生
+              option 老师
+          .modal-footer
+            a#SelectedItem(href='#', style='display: none')
+            button.btn.btn-default(type='button', data-dismiss='modal') Close
+            button#modify-btn.btn.btn-primary(type='button') Save changes
+    #myDelete.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Modal title
+          .modal-body
+            p 确认删除此同学？
+          .modal-footer
+            a#SelectedItem(href='#', style='display: none')
+            button#deleta-btn.btn.btn-primary(type='button') 确认
+    // /.modal
+    script(src='../public/vendor/jquery/dist/jquery.min.js')
+    script(src='../public/vendor/bootstrap/dist/js/bootstrap.min.js')
+    script(src='../public/javascripts/admin-manage.js')

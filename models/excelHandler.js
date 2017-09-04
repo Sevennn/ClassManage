@@ -3,7 +3,8 @@ var xl = require('node-xlsx');
 var path = require('path');
 module.exports = {
     MakeJade: function(filename, callback) {
-        var filepath = path.join(__dirname, '../public/data', filename);
+
+        var filepath = path.join(__dirname, '../public/data/excels', filename);
         var tmp = xl.parse(filepath);
         var keys = tmp[0].data[0];
         callback(keys);
@@ -30,7 +31,7 @@ module.exports = {
         console.log(data);
         var buffer = xl.build([{ name: 'sheet', data: data }]);
         var filename = (new Date).getTime();
-        fs.writeFileSync(path.join(__dirname, '../public/data', filename + '.xlsx'), buffer, 'binary');
+        fs.writeFileSync(path.join(__dirname, '../public/data/excels', filename + '.xlsx'), buffer, 'binary');
         callback(filename + '.xlsx');
     }
 }

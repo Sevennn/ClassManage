@@ -1,0 +1,20 @@
+.his-msg {
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.current-msg {
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.current-msg textarea {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    resize: none;
+    border-radius: 10px;
+}

@@ -4,8 +4,9 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title Class 5
-    link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='vendor/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/main.css')
+    link(rel='stylesheet', href='/stylesheets/default.css')
   body
     nav.navbar.navbar-inverse.navbar-default
       .container-fluid
@@ -21,6 +22,8 @@ html
           ul.nav.navbar-nav
             li
               a(href='#') 奖学金资料提交
+            li
+              a(href='/scholarpage') 奖学金评比信息
             li.dropdown
               a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                 | 填写最近表格
@@ -41,8 +44,8 @@ html
                 strong GoodLuck!
                 |  Your file has submited!
 
-    script(src='/jquery/dist/jquery.min.js')
-    script(src='/bootstrap/dist/js/bootstrap.js')
+    script(src='vendor/jquery/dist/jquery.min.js')
+    script(src='vendor/bootstrap/dist/js/bootstrap.js')
     script.
       $(function () {
         $('[data-toggle="tooltip"]').tooltip()
