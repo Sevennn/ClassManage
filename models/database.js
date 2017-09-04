@@ -119,7 +119,7 @@ module.exports = {
             var collection = db.collection('userInfo');
             var filter = {
                 'userid': user.id,
-                'password': user.password
+                'password': crypto.createHash('sha256').update(CONFIG.PASSWORD_SALT + user.password).digest('hex')
             }
             collection.find(filter).toArray(function(err, res) {
                 console.log(res);
@@ -154,12 +154,15 @@ module.exports = {
                 return;
             }
 
-            var collection = db.collection('user');
+            var oldPsw_cry = crypto.createHash('sha256').update(CONFIG.PASSWORD_SALT + oldPsw).digest('hex');
+            var newPsw_cry = crypto.createHash('sha256').update(CONFIG.PASSWORD_SALT + newPsw).digest('hex');
+            
+            var collection = db.collection('userInfo');
             var filter = {
                 'userid': userid,
-                'password': oldPsw
+                'password': oldPsw_cry
             }
-            collection.update(filter, { $set: { 'password': newPsw } }, function(err, res) {
+            collection.update(filter, { $set: { 'password': newPsw_cry } }, function(err, res) {
                 if (err) {
                     console.log(err);
                     return;
