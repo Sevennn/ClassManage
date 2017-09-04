@@ -1,5 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
-var db_con = 'mongodb://localhost:27017/class_db';
+var crypto = require('crypto');
+var CONFIG = require('../config.js');
+var db_con = CONFIG.MONGO_URL;
 var ExcelWriter = require("./excelHandler");
 module.exports = {
     insertForm: function(formName, callback) {

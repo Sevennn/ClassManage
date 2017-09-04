@@ -1,0 +1,4 @@
+module.exports = {
+    MONGO_URL: 'mongodb://user@localhost/db',
+    PASSWORD_SALT: 'this-is-salt'
+};
