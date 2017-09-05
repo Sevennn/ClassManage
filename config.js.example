@@ -1,4 +1,10 @@
 module.exports = {
     MONGO_URL: 'mongodb://user@localhost/db',
-    PASSWORD_SALT: 'this-is-salt'
+    PASSWORD_SALT: 'this-is-salt',
+    MYSQL_HOST: 'hostname',
+    MYSQL_PORT: 3306,
+    MYSQL_USER: 'user',
+    MYSQL_PASSWORD: 'pwd',
+    MYSQL_DATABASE: 'db',
+    MYSQL_POOL_LIMIT: 10
 };
