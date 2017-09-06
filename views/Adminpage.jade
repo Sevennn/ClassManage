@@ -34,11 +34,5 @@ html
                     a(href='/admin/downloadform?formid=#{form.id}') #{form.fileName}
     .container-fluid
       .row
-          if success
-            .alert.alert-success.alert-dismissible(role='alert')
-                button.close(type='button', data-dismiss='alert', aria-label='Close')
-                    span(aria-hidden='true') ×
-                strong GoodLuck!
-                |  Your file has submited!
     script(src='vendor/jquery/dist/jquery.min.js')
     script(src='vendor/bootstrap/dist/js/bootstrap.min.js')

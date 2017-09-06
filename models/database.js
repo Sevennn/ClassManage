@@ -156,7 +156,7 @@ module.exports = {
 
             var oldPsw_cry = crypto.createHash('sha256').update(CONFIG.PASSWORD_SALT + oldPsw).digest('hex');
             var newPsw_cry = crypto.createHash('sha256').update(CONFIG.PASSWORD_SALT + newPsw).digest('hex');
-            
+
             var collection = db.collection('userInfo');
             var filter = {
                 'userid': userid,

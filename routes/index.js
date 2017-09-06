@@ -3,7 +3,8 @@ var router = express.Router();
 var database = require("../models/database");
 var xlReader = require("../models/excelHandler");
 var session = require("express-session");
-
+var file = require("../models/file");
+var scholar = require("../models/scholar");
 router.get('/', function(req, res, next) {
     if (req.session.userid)
         res.redirect('/main');
@@ -30,25 +31,27 @@ router.all('*', function(req, res, next) {
 router.get('/main', function(req, res, next) {
     // database.insertForm('ex', function(res) { console.log(res) });
     // res.render('submitForm');
-    database.GetForms(function(arr) {
-        var success = false;
-        if (req.session.success == true)
-            success = true;
-        delete req.session.success;
-        res.render('mainpage', { arr: arr, success: success });
-    })
+    file.GetFilesInfo("sheet_name != null", function(err, data) {
+        if (err)
+            res.send(err);
+        else
+            res.render('mainpage', { arr: data });
+    });
 });
 router.get('/submitform', function(req, res, next) {
-    database.getFormname(req.query.formid, function(name) {
-        xlReader.MakeJade(name, function(data) {
-            res.render('submit', { keys: data, formId: req.query.formid, formName: data.fileName });
-        });
-    })
+    file.GetFileInfo(req.query.fileid, function(err, info) {
+        if (err)
+            res.send(err);
+        else
+            xlReader.MakeJade(info.file_path, function(data) {
+                res.render('submit', { keys: data, fileid: req.query.fileid, sheet_name: info.sheet_name });
+            })
+    });
 })
 router.post('/submitform', function(req, res, next) {
     var data = req.body;
     console.log(data);
-    data.formid = req.query.formid;
+    data.formid = req.query.fileid;
     data.userid = req.session.userid;
     database.InsertUserData(data, function(result) {
         req.session.success = true;
@@ -78,13 +81,17 @@ router.post('/updatepsw', function(req, res, next) {
 })
 
 router.get('/scholarpage', function(req, res, next) {
-    database.GetScholar(req.session.userid, function(data) {
+    scholar.GetScholarInfo(req.session.userid, function(err, data) {
+        console.log(data);
         res.render('scholar', { info: data[0], comment: false });
     })
 });
 router.get('/getfile', function(req, res, next) {
-    database.GetFile(req.query.fileid, function(path) {
-        res.redirect(path);
-    })
+    file.DownloadFile(req.body.fileid, function(err, filepath) {
+        if (err)
+            res.send(err);
+        else
+            res.redirect(filepath);
+    });
 });
 module.exports = router;

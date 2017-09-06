@@ -20,7 +20,7 @@ html
         #nav-collapse.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a(href='/getfile?fileid=#{info.fileid}') 
+              a(href='/getfile?fileid=#{info.file_id}') 
                 if comment
                   下载该生资料
                 else
@@ -43,7 +43,7 @@ html
             else
               | 暂无
           if info.comment
-            p 最后由 #{info.commenter} 评论
+            p 最后由 #{info.comment_by} 评论
       if comment
         .row
           .current-msg
