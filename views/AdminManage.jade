@@ -3,9 +3,9 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', ,='', content='IE=edge')
     meta(name='viewport', ,='', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='../public/vendor/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='../public/stylesheets/Adminuser.css')
-    link(rel='stylesheet', href='../public/stylesheets/default.css')
+    link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/Adminuser.css')
+    link(rel='stylesheet', href='/stylesheets/default.css')
     title 人员管理
   body
     nav.navbar.navbar-inverse
@@ -25,28 +25,29 @@ html
     .container-fluid
       .row
         ul.user-list.list-group
-          li.user-container.list-item
-            .user-info
-              .user-info-col
-                span.user-name 张大牛
-                br
-                span.user-id 12345678
-              .user-info-col
-                span.role 班级
-                br
-                span 5
-              .user-info-col
-                span.role 角色
-                br
-                span 学生
-              .user-info-col.btn-container
-                button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                  span.glyphicon.glyphicon-cog(aria-hidden='true')
-                ul.dropdown-menu
-                  li
-                    span.delete(data-toggle='modal', data-target='#myDelete') 删除
-                  li
-                    span.modify(data-toggle='modal', data-target='#myModify') 修改权限
+          each member in members
+            li.user-container.list-item
+              .user-info
+                .user-info-col
+                  span.user-name #{member.username}
+                  br
+                  span.user-id #{member.student_id}
+                .user-info-col
+                  span.role 班级
+                  br
+                  span #{member.class}
+                .user-info-col
+                  span.role 角色
+                  br
+                  span #{member.role}
+                .user-info-col.btn-container
+                  button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                    span.glyphicon.glyphicon-cog(aria-hidden='true')
+                  ul.dropdown-menu
+                    li
+                      span.delete(data-toggle='modal', data-target='#myDelete') 删除
+                    li
+                      span.modify(data-toggle='modal', data-target='#myModify') 修改权限
     #myModify.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
       .modal-dialog(role='document')
         .modal-content
@@ -56,8 +57,8 @@ html
             h4#myModalLabel.modal-title Modal title
           .modal-body
             select#select-role.form-control(name='role')
-              option 学生
-              option 老师
+              option(value='0') 评比人员
+              option(value='1') 学生
           .modal-footer
             a#SelectedItem(href='#', style='display: none')
             button.btn.btn-default(type='button', data-dismiss='modal') Close
@@ -75,6 +76,6 @@ html
             a#SelectedItem(href='#', style='display: none')
             button#deleta-btn.btn.btn-primary(type='button') 确认
     // /.modal
-    script(src='../public/vendor/jquery/dist/jquery.min.js')
-    script(src='../public/vendor/bootstrap/dist/js/bootstrap.min.js')
-    script(src='../public/javascripts/admin-manage.js')
+    script(src='/vendor/jquery/dist/jquery.min.js')
+    script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/javascripts/admin-manage.js')

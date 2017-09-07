@@ -1,6 +1,8 @@
 ;
-$("#excel").fileinput({
+
+$("#zip").fileinput({
     allowedFileExtensions: ["zip"],
-    uploadUrl: '/admin/formupload',
+    enctype: "multipart/form-data",
+    uploadUrl: '/scholar/upload/zip',
     uploadAsync: true
 });

@@ -1,0 +1,43 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', ,='', content='IE=edge')
+    meta(name='viewport', ,='', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/vendor/icheck/skins/line/blue.css')
+    link(rel='stylesheet', href='/stylesheets/Admindistribute.css')
+    link(rel='stylesheet', href='/stylesheets/default.css')
+    title 任务分配
+  body
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#btn-hide', aria-expanded='false')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#')
+            | Class Distribute
+    .container-fluid
+      .row.examiner-container.well
+        h4 请选择评比人员
+        ul.examiner-list
+          each user in examiner
+            li.examiner
+              .examiner-checkbox
+                input(type='checkbox', value='#{user.userid}')
+                label #{user.username}
+      .row.examinee-container.well
+        h4 请选择待评人员
+        ul.examinee-list
+          each user in examinee
+            li.examinee
+              .examinee-checkbox
+                input(type='checkbox', value='#{user.userid}')
+                label #{user.username}
+      .row
+        button#dis-btn.btn.btn-success(type='button') 开始分配
+    script(src='/vendor/jquery/dist/jquery.min.js')
+    script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/vendor/icheck/icheck.min.js')
+    script(src='/javascripts/admin-distribute.js')

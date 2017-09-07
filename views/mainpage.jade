@@ -3,7 +3,7 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Class 5
+    title Class 3
     link(rel='stylesheet', href='vendor/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/main.css')
     link(rel='stylesheet', href='/stylesheets/default.css')
@@ -21,17 +21,20 @@ html
           // Single button
           ul.nav.navbar-nav
             li
-              a(href='#') 奖学金资料提交
+              a(href='/scholar/upload') 奖学金资料提交
             li
-              a(href='/scholarpage') 奖学金评比信息
-            li.dropdown
-              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                | 填写最近表格
-                span.caret
-              ul.dropdown-menu
-                each sheet in arr
-                  li
-                    a(href='submitform?fileid=#{sheet.id}') #{sheet.sheet_name}
+              a(href='/scholar/page') 奖学金评比信息
+            if role == 0
+              li
+                a(href='/scholar/exam') 进行奖学金评比
+            //- li.dropdown
+            //-   a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+            //-     | 填写最近表格
+            //-     span.caret
+            //-   ul.dropdown-menu
+            //-     each sheet in arr
+            //-       li
+            //-         a(href='submitform?fileid=#{sheet.id}') #{sheet.sheet_name}
           ul.nav.navbar-nav.navbar-right
             li
               a(href='/userinfo' data-toggle="tooltip" data-placement="bottom" title="Strongly Recommend") Reset Password

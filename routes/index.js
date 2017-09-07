@@ -5,19 +5,24 @@ var xlReader = require("../models/excelHandler");
 var session = require("express-session");
 var file = require("../models/file");
 var scholar = require("../models/scholar");
+var upload = require('../models/uploads');
+var user = require('../models/user');
 router.get('/', function(req, res, next) {
     if (req.session.userid)
         res.redirect('/main');
     res.render('signin');
 })
 router.post('/signin', function(req, res, next) {
-    database.UserLogin(req.body, function(re) {
-        if (re.length > 0) {
-            req.session.userid = req.body.id;
-            res.json({ 'success': true });
-        } else
-            res.json({ 'error': 'no such user!' });
-    });
+    user.UserLogin(req.body.id, req.body.password, function(err, user) {
+        if (err)
+            res.send(err);
+        else {
+            req.session.userid = user.userid;
+            req.session.student_id = user.student_id;
+            req.session.role = user.role;
+            res.json({ success: true });
+        }
+    })
 });
 
 router.all('*', function(req, res, next) {
@@ -35,7 +40,7 @@ router.get('/main', function(req, res, next) {
         if (err)
             res.send(err);
         else
-            res.render('mainpage', { arr: data });
+            res.render('mainpage', { arr: data, role: req.session.role });
     });
 });
 router.get('/submitform', function(req, res, next) {
@@ -80,18 +85,51 @@ router.post('/updatepsw', function(req, res, next) {
     })
 })
 
-router.get('/scholarpage', function(req, res, next) {
+router.get('/scholar/page', function(req, res, next) {
     scholar.GetScholarInfo(req.session.userid, function(err, data) {
         console.log(data);
-        res.render('scholar', { info: data[0], comment: false });
+        scholar.GetScholarFileId(req.session.userid, function(err, data) {
+            res.render('scholar', { info: data[0], comment: false, fileid: data.length > 0 ? data[0].file_id : undefined });
+        })
     })
 });
-router.get('/getfile', function(req, res, next) {
-    file.DownloadFile(req.body.fileid, function(err, filepath) {
+router.get('/scholar/upload', function(req, res, next) {
+    res.render('upload', { type: 'zip', excel: false });
+})
+
+router.post('/scholar/upload/zip', upload.single('zip'), function(req, res, next) {
+    console.log(req.file);
+    if (req.file) {
+        var filename = req.file.originalname;
+        console.log(filename);
+        file.CreateFile(req.file.destination + '/' + req.file.filename, function(err, fileid) {
+            scholar.CreateScholarInfo(req.session.userid, fileid, function(err, result) {
+                if (err)
+                    res.json({ error: err });
+                else {
+                    res.json({ error: '' });
+                }
+            })
+        });
+    } else {
+        // req.session.file.success = false;
+        console.log('upload failed');
+        res.json({
+            error: 'file upload failed, check your file type or size',
+            initialPreview: [],
+            initialPreviewConfig: [],
+            initialPreviewThumbTags: []
+        });
+    }
+})
+
+
+router.get('/scholar-getfile', function(req, res, next) {
+    file.DownloadFile(req.query.fileid, function(err, filepath) {
         if (err)
             res.send(err);
         else
-            res.redirect(filepath);
+            res.redirect(filepath.substr(filepath.indexOf('scholar')));
     });
 });
 module.exports = router;

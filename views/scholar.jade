@@ -20,30 +20,34 @@ html
         #nav-collapse.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a(href='/getfile?fileid=#{info.file_id}') 
-                if comment
-                  下载该生资料
-                else
-                  下载最近提交资料
+              if fileid
+                a(href='/scholar-getfile?fileid=#{fileid}') 
+                  if comment
+                    下载该生资料
+                  else
+                    下载最近提交资料
           if comment
             form.navbar-form.navbar-left
               .form-group
                 input.form-control(type='number', placeholder='分数')
               button.btn.btn-danger(type='submit') 提交
-          if info.point
+          if info
            p.navbar-text.navbar-right
               | 当前分数为 ：#{info.point}
     .container
       .row
         .his-msg
-          h1 历史评论
-          p.his-msg-content
+          if info
+            h1 历史评论
+            p.his-msg-content
+              if info.comment
+                | #{info.comment}
+              else
+                | 暂无
             if info.comment
-              | #{info.comment}
-            else
-              | 暂无
-          if info.comment
-            p 最后由 #{info.comment_by} 评论
+              p 最后由 #{info.comment_by} 评论
+          else
+            h1 暂未提交资料
       if comment
         .row
           .current-msg

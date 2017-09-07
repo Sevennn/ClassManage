@@ -4,8 +4,8 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title 文件提交
-    link(rel='stylesheet',  href='vendor/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='vendor/bootstrap-fileinput/css/fileinput.min.css')
+    link(rel='stylesheet',  href='/vendor/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/vendor/bootstrap-fileinput/css/fileinput.min.css')
     style.
       html {
       height: 100%;
@@ -28,14 +28,14 @@ html
       }
   body
     .container.content(style='position:relative')
-      .middle(enctype="multipart/form-data")
+      form.middle(method='post' enctype="multipart/form-data")
         .form-group
           label(for='#{type}') Select File
           input.file(id='#{type}' type='file' data-show-preview='true' name='#{type}')
-    script(src='vendor/jquery/dist/jquery.min.js')
-    script(src='vendor/bootstrap/dist/js/bootstrap.min.js')
-    script(src='vendor/bootstrap-fileinput/js/fileinput.min.js')
-    script(src='vendor/bootstrap-fileinput/js/locales/zh.js')
+    script(src='/vendor/jquery/dist/jquery.min.js')
+    script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/vendor/bootstrap-fileinput/js/fileinput.min.js')
+    script(src='/vendor/bootstrap-fileinput/js/locales/zh.js')
     if excel
       script(src="/javascripts/upload-excel.js")
     else

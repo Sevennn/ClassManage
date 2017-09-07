@@ -1,0 +1,77 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' , content='IE=edge' />
+    <meta name='viewport' , content='width=device-width, initial-scale=1' />
+    <link rel="stylesheet" href="../public/vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../public/vendor/icheck/skins/line/blue.css" />
+    <link rel="stylesheet" href="../public/stylesheets/Admindistribute.css" />
+    <link rel="stylesheet" href="../public/stylesheets/default.css" />
+    <title>任务分配</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#btn-hide" aria-expanded="false">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="#">
+                    Class Distribute
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row examiner-container well">
+            <h4>请选择评比人员</h4>
+            <ul class="examiner-list">
+                <li class="examiner">
+                    <div class="examiner-checkbox">
+                        <input type="checkbox" value="userid" />
+                        <label>张大牛</label>
+                    </div>
+                </li>
+                <li class="examiner">
+                    <div class="examiner-checkbox">
+                        <input type="checkbox" value="userid" />
+                        <label>张大牛</label>
+                    </div>
+                </li>
+                <li class="examiner">
+                    <div class="examiner-checkbox">
+                        <input type="checkbox" value="userid" />
+                        <label>张大牛</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="row examinee-container well">
+            <h4>请选择待评人员</h4>
+            <ul class="examinee-list">
+                <li class="examinee">
+                    <div class="examinee-checkbox">
+                        <input type="checkbox" value="userid" />
+                        <label>张大牛</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-success" id="dis-btn">开始分配</button>
+        </div>
+    </div>
+
+    <script src="../public/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../public/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../public/vendor/icheck/icheck.min.js"></script>
+    <script src="../public/javascripts/admin-distribute.js"></script>
+</body>
+
+</html>

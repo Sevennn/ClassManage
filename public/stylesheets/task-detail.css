@@ -1,0 +1,28 @@
+.examiner-list {
+    padding: 0;
+}
+
+.examiner-list,
+.examinee-list {
+    list-style: none;
+}
+
+.examinee-list>li {
+    display: inline-block;
+}
+
+.examiner-container h4 {
+    display: inline-block;
+    border-radius: 2px;
+    text-align: center;
+    background-color: skyblue;
+    color: white;
+    padding: 5px 10px;
+}
+
+.examinee {
+    padding: 2px 5px;
+    border-radius: 2px;
+    background-color: rgba(103, 220, 168, 0.54);
+    color: white;
+}

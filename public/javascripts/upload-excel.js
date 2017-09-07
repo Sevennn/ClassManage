@@ -1,6 +1,6 @@
 ;
 $("#excel").fileinput({
     allowedFileExtensions: ["xls", "xlsx"],
-    uploadUrl: '/admin/formupload',
+    uploadUrl: '/admin/upload/excel;',
     uploadAsync: true
 });

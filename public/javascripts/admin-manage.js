@@ -15,13 +15,13 @@
     //     })
     // })
     $('#modify-btn').click(function() {
-        let Url = '/admin/modify?userid=' + $('#SelectedItem').attr('href');
-        $.post(Url, { role: $('#select-role').val() }, function(res) {
+        let Url = '/admin/modify';
+        $.post(Url, { role: $('#select-role').val(), userid: $('#SelectedItem').attr('href') }, function(res) {
             $('#myModify').modal({ show: false });
             if (res.success)
-                location.reload();
+                location = location;
             else
-                alert('modify failed');
+                alert(res);
         })
     })
 })();

@@ -4,6 +4,9 @@ var database = require("../models/database");
 var xlReader = require("../models/excelHandler");
 var upload = require("../models/uploads");
 var file = require('../models/file');
+var user = require('../models/user');
+var scholar = require('../models/scholar');
+var task = require('../models/task');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     if (req.session.adminid)
@@ -30,12 +33,13 @@ router.get('/main', function(req, res, next) {
     // if (!req.session.adminid)
     //     res.redirect('/admin');
     // else
-    file.GetFilesInfo("sheet_name != null", function(err, data) {
-        if (err)
-            res.send(err);
-        else
-            res.render('Adminpage', { arr: arr });
-    });
+    // file.GetFilesInfo("sheet_name != null", function(err, data) {
+    //     if (err)
+    //         res.send(err);
+    //     else
+    //         res.render('Adminpage', { arr: arr });
+    // });
+    res.render('AdminPage');
 })
 router.get('/formupload', function(req, res, next) {
     // if (!req.session.adminid)
@@ -67,7 +71,48 @@ router.post('/formupload', upload.single('excel'), function(req, res, next) {
 });
 
 router.get('/manage', function(req, res, next) {
-    
+    user.UserSearch({ class: 5 }, function(err, members) {
+        res.render('AdminManage', { members: members });
+    })
+});
+router.post('/modify', function(req, res, next) {
+    console.log("data", req.body.userid, req.body.role);
+    user.UserUpdate({ student_id: req.body.userid }, { role: req.body.role }, function(err, result) {
+        if (err)
+            res.send(err);
+        else
+            res.json({ success: true });
+    })
+});
+router.get('/distribute', function(req, res, next) {
+    var examinee = [],
+        examiner = [];
+    scholar.GetExaminee(function(err, result1) {
+        if (err)
+            res.send(err);
+        else {
+            examinee = result1;
+            scholar.GetExaminer(function(err, result2) {
+                if (err)
+                    res.send(err);
+                else {
+                    examiner = result2;
+                    console.log(examinee, examiner);
+                    res.render('DistributePage', { examinee: examinee, examiner: examiner });
+                }
+            })
+        }
+    })
+});
+router.post('/task/distribute', function(req, res, next) {
+    console.log(req.body.examiners.split(','), req.body.examinees.split(','));
+    task.DistributeTask(req.body.examiners.split(','), req.body.examinees.split(','), function(err, result) {
+        console.log(err);
+        if (err)
+            res.send(err);
+        else
+            res.send({ success: true });
+    });
 });
 // wait for rewrite
 // router.get('/downloadform', function(req, res, next) {

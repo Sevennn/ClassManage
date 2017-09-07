@@ -1,0 +1,17 @@
+.examiner-list,
+.examinee-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.examiner-list>li,
+.examinee-list>li {
+    margin: 5px 5px;
+    display: inline-block;
+}
+
+.examiner span,
+.examinee span {
+    padding-left: 5px;
+}
