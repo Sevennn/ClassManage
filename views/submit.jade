@@ -9,8 +9,8 @@ html
     link(rel='stylesheet', href='/stylesheets/default.css')
   body
     .container
-      h1 #{fileName}
-      form(action='/submitform?formid=#{formId}', method='post')
+      h1 #{sheet_name}
+      form(action='/submitform?fileid=#{fileid}', method='post')
         each item,i in keys
           .form-group
             label(for=i) #{item}

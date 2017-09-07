@@ -29,21 +29,14 @@ html
                 | 填写最近表格
                 span.caret
               ul.dropdown-menu
-                each form in arr
+                each sheet in arr
                   li
-                    a(href='submitform?formid=#{form.id}') #{form.fileName}
+                    a(href='submitform?fileid=#{sheet.id}') #{sheet.sheet_name}
           ul.nav.navbar-nav.navbar-right
             li
               a(href='/userinfo' data-toggle="tooltip" data-placement="bottom" title="Strongly Recommend") Reset Password
     .container-fluid
       .row
-        if success
-            .alert.alert-success.alert-dismissible(role='alert')
-                button.close(type='button', data-dismiss='alert', aria-label='Close')
-                    span(aria-hidden='true') ×
-                strong GoodLuck!
-                |  Your file has submited!
-
     script(src='vendor/jquery/dist/jquery.min.js')
     script(src='vendor/bootstrap/dist/js/bootstrap.js')
     script.
