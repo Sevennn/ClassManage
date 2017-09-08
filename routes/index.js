@@ -114,10 +114,11 @@ router.get('/scholar/judge', function(req, res, next) {
     if (!req.query)
         res.send('error: no query');
     scholar.GetScholarExamineeInfo(req.query.userid, (err, rows) => {
+        console.log(rows);
         if (err)
             res.send(err);
         else
-            res.render('ScholarJudge', { user: rows[0], comment: true });
+            res.render('ScholarJudge', { user: rows[0], comment: true, studentid: req.query.studentid });
     })
 })
 router.get('/scholar/page', function(req, res, next) {

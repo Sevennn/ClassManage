@@ -32,7 +32,7 @@ html
                     br
                     span #{user.class}
                   .user-info-col.btn-container
-                    a(href='/scholar/judge?userid=#{user.userid}') 进入评比
+                    a(href='/scholar/judge?userid=#{user.userid}&studentid=#{user.student_id}') 进入评比
                   if user.finished
                     .user-info-col
                         span 已评
