@@ -19,3 +19,8 @@
     width: auto;
     overflow: visible;
 }
+
+.message {
+    margin: 10px;
+    background-color: #7A8DED;
+}

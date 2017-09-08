@@ -3,12 +3,13 @@
     border: 1px solid white;
     border-radius: 10px;
     padding: 10px;
+    margin: 0 5px;
 }
 
 .current-msg {
     border: 1px solid white;
     border-radius: 10px;
-    margin: 10px 0;
+    margin: 10px 5px;
 }
 
 .current-msg textarea {
@@ -17,4 +18,13 @@
     color: white;
     resize: none;
     border-radius: 10px;
+}
+
+.form-group input {
+    width: 100px;
+    margin: 0 5px;
+}
+
+.row button {
+    margin: 0 5px;
 }

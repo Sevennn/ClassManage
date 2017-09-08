@@ -40,6 +40,8 @@ $('#dis-btn').click(function() {
     $.post('/admin/task/distribute', { examiners: examiner_id.toString(), examinees: examinee_id.toString() }, function(res) {
         if (!res.success)
             alert(res.error);
+        else
+            location = location;
         // window.location.href = "/admin/task/detail";
 
     })

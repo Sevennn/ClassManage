@@ -1,0 +1,40 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', ,='', content='IE=edge')
+    meta(name='viewport', ,='', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/Adminuser.css')
+    link(rel='stylesheet', href='/stylesheets/default.css')
+    title 人员管理
+  body
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#btn-hide', aria-expanded='false')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#')
+            | 奖学金评比
+    .container-fluid
+      .row
+        ul.user-list.list-group
+          each user in examinees
+            li.user-container.list-item
+                .user-info
+                  .user-info-col
+                    span.user-name #{user.username}
+                    br
+                    span.user-id #{user.student_id}
+                  .user-info-col
+                    span.role 班级
+                    br
+                    span #{user.class}
+                  .user-info-col.btn-container
+                    a(href='/scholar/judge?userid=#{user.userid}') 进入评比
+                  if user.finished
+                    .user-info-col
+                        span 已评
+    script(src='/vendor/jquery/dist/jquery.min.js')
+    script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')

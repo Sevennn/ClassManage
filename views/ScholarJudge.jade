@@ -16,42 +16,45 @@ html
             span.icon-bar
             span.icon-bar
           a.navbar-brand(href='#')
-            | 奖学金评比信息
+            if user
+              | #{user.student_id}奖学金评比信息
         #nav-collapse.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              if fileid
-                a(href='/scholar-getfile?fileid=#{fileid}') 
-                  if comment
-                    下载该生资料
-                  else
-                    下载最近提交资料
-          if comment
-            form.navbar-form.navbar-left
-              .form-group
-                input.form-control(type='number', placeholder='分数')
-              button.btn.btn-danger(type='submit') 提交
-          if info
+              if user
+                if user.file_id
+                  a(href='/scholar-getfile?fileid=#{user.file_id}') 
+                    if comment
+                      下载该生资料
+                    else
+                      下载最近提交资料
+          if user
            p.navbar-text.navbar-right
-              | 当前分数为 ：#{info.point}
+              | 当前分数为 ：#{user.point}
     .container
       .row
         .his-msg
-          if info
+          if user
             h1 历史评论
             p.his-msg-content
-              if info.comment
-                | #{info.comment}
+              if user.comment
+                p
+                  !=user.comment
               else
                 | 暂无
-            if info.comment
-              p 最后由 #{info.comment_by} 评论
+            if user.comment
+              p.
+                最后由 #{user.username} 评论
           else
             h1 暂未提交资料
       if comment
         .row
           .current-msg
             textarea#comment.form-control(rows='6', placeholder='请输入评价依据')
-        button.btn.btn-success(type='button') 提交评论
+          if comment
+            .form-group
+              input.form-control#point(type='text', placeholder='分数')
+            button.btn.btn-danger#point-btn(type='button') 提交
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
+    script(Src='/javascripts/scholar.js')

@@ -10,14 +10,15 @@ module.exports = {
     CreateFile: function(filepath, callback) {
         var sql = 'insert into `file` set ?';
         conn.query(sql, { file_path: filepath }, function(err, rows, fileids) {
-            if (err) {
-                console.log(err);
-                callback({ error: "数据库出错，请联系管理员或者稍后重试，谢谢！" })
-                return;
-            }
-            console.log(rows, fileids);
             callback(err, rows.insertId);
         });
+    },
+    UpdateFile: function(file_id, filepath, callback) {
+        var sql = `update file set file_path = '${filepath}' where fileid = ${file_id}`;
+        conn.query(sql, function(err, rows, fileids) {
+            console.log(err);
+            callback(err, rows);
+        })
     },
     /**
      * @param {string} filepath specify the path of file

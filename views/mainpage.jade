@@ -16,7 +16,7 @@ html
             span.icon-bar
             span.icon-bar
           a.navbar-brand(href='#')
-            | Class 5
+            | #{username}
         #nav-hide-area.collapse.navbar-collapse
           // Single button
           ul.nav.navbar-nav
@@ -38,8 +38,17 @@ html
           ul.nav.navbar-nav.navbar-right
             li
               a(href='/userinfo' data-toggle="tooltip" data-placement="bottom" title="Strongly Recommend") Reset Password
+            li
+              a(href='/logout') Log out
     .container-fluid
       .row
+        ul.list-group.message-list
+          each user in arr
+            li.list-item.well.message
+              p 被评人: #{user.username}
+              p.comment
+                !=user.comment
+              p 分数: #{user.point}
     script(src='vendor/jquery/dist/jquery.min.js')
     script(src='vendor/bootstrap/dist/js/bootstrap.js')
     script.

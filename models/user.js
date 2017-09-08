@@ -15,12 +15,14 @@ module.exports = {
             if (res.length == 1) {
                 delete res[0].password;
                 callback(err, res[0]);
+            } else {
+                callback(err, res[0]);
             }
         });
     },
     UpdatePsw: function(student_id, old_password, new_password, callback) {
-        let old_password_cry = crypto.createHash('sha256').update(CONFIG.PASSWORD_SALT + old_password).digest('hex');
-        let new_password_cry = crypto.createHash('sha256').update(CONFIG.PASSWORD_SALT + new_password).digest('hex');
+        let old_password_cry = crypto.createHash('sha256').update(config.PASSWORD_SALT + old_password).digest('hex');
+        let new_password_cry = crypto.createHash('sha256').update(config.PASSWORD_SALT + new_password).digest('hex');
 
         pool.query('select * from user where ? and ?', [{ 'student_id': student_id }, { 'password': old_password_cry }], function(err, res, fields) {
             if (err) {

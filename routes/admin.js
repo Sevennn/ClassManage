@@ -114,13 +114,21 @@ router.post('/task/distribute', function(req, res, next) {
             res.send({ success: true });
     });
 });
-// wait for rewrite
-// router.get('/downloadform', function(req, res, next) {
-//     // if (!req.session.adminid)
-//     //     res.redirect('/admin');
-//     // else
-//     database.GetExcelFile(req.query.formid, function(filename) {
-//         res.redirect('/data/' + filename);
-//     });
-// })
+router.get('/task/detail', function(req, res, next) {
+        scholar.GetAllInfo(function(err, rows) {
+            if (err)
+                res.send(err);
+            else
+                res.render('task-detail', { list: rows });
+        });
+    })
+    // wait for rewrite
+    // router.get('/downloadform', function(req, res, next) {
+    //     // if (!req.session.adminid)
+    //     //     res.redirect('/admin');
+    //     // else
+    //     database.GetExcelFile(req.query.formid, function(filename) {
+    //         res.redirect('/data/' + filename);
+    //     });
+    // })
 module.exports = router;

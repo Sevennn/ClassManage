@@ -13,7 +13,7 @@ var storage = multer.diskStorage({
     filename: function(req, file, cb) {
         var tmp = file.originalname.split('.');
         var type = tmp[tmp.length - 1];
-        cb(null, file.fieldname + '-' + Date.now() + '.' + type);
+        cb(null, req.session.student_id + '-' + Date.now() + '.' + type);
     }
 });
 

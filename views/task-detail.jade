@@ -1,0 +1,37 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', ,='', content='IE=edge')
+    meta(name='viewport', ,='', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='../public/vendor/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='../public/vendor/icheck/skins/line/blue.css')
+    link(rel='stylesheet', href='../public/stylesheets/task-detail.css')
+    link(rel='stylesheet', href='../public/stylesheets/default.css')
+    title 任务分配详情
+  body
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#btn-hide', aria-expanded='false')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#')
+            | Task Detail
+    .container-fluid
+      .row
+        ul.examiner-list
+          li.examiner-container.well
+            h4 张大牛
+            ul.examinee-list
+              li.examinee 张三
+              li.examinee 李四
+          li.examiner-container.well
+            h4 张大牛
+            ul.examinee-list
+              li.examinee 张三
+              li.examinee 李四
+    script(src='../public/vendor/jquery/dist/jquery.min.js')
+    script(src='../public/vendor/bootstrap/dist/js/bootstrap.min.js')
+    script(src='../public/vendor/icheck/icheck.min.js')
+    script(src='../public/javascripts/task-detail.js')
