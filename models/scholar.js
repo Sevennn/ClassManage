@@ -56,7 +56,7 @@ module.exports = {
         });
     },
     GetScholarExamineeInfo: function(userid, callback) {
-        var sql = `select * from doc,user where doc.userid = ${userid} and user.userid = ${userid}`;
+        var sql = `select * from doc,user where doc.userid = ${userid} and user.userid = doc.comment_by`;
         conn.query(sql, function(err, rows, fileids) {
             callback(err, rows);
         });

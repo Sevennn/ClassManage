@@ -124,7 +124,7 @@ router.get('/scholar/page', function(req, res, next) {
     scholar.GetScholarInfo(req.session.userid, function(err, data) {
         console.log(data);
         scholar.GetScholarFileId(req.session.userid, function(err, data) {
-            res.render('ScholarJudge', { user: data[0], comment: false, fileid: data.length > 0 ? data[0].file_id : undefined });
+            res.render('ScholarJudge', { user: data[0], studentid: req.session.student_id, comment: false, fileid: data.length > 0 ? data[0].file_id : undefined });
         })
     })
 });
