@@ -124,9 +124,16 @@ router.get('/scholar/judge', function(req, res, next) {
 router.get('/scholar/page', function(req, res, next) {
     scholar.GetScholarInfo(req.session.userid, function(err, data) {
         console.log(data);
-        scholar.GetScholarFileId(req.session.userid, function(err, data) {
+        if (data.length == 0) {
+            scholar.CheckExist(req.session.userid, function(err, data) {
+                if (err)
+                    res.send(err);
+                else
+                    res.render('ScholarJudge', { user: data[0], studentid: req.session.student_id, comment: false, fileid: data.length > 0 ? data[0].file_id : undefined })
+            })
+        } else
             res.render('ScholarJudge', { user: data[0], studentid: req.session.student_id, comment: false, fileid: data.length > 0 ? data[0].file_id : undefined });
-        })
+
     })
 });
 
@@ -147,9 +154,9 @@ router.post('/scholar/upload/zip', upload.single('zip'), function(req, res, next
     if (req.file) {
         var filename = req.file.originalname;
         console.log(filename);
-        scholar.GetScholarFileId(req.session.userid, (err, rows) => {
+        scholar.CheckExist(req.session.userid, (err, rows) => {
             console.log(rows.length);
-            if (rows.length <= 0)
+            if (rows.length <= 0) {
                 file.CreateFile(req.file.destination + '/' + req.file.filename, function(err, fileid) {
                     scholar.CreateScholarInfo(req.session.userid, fileid, function(err, result) {
                         if (err)
@@ -159,13 +166,14 @@ router.post('/scholar/upload/zip', upload.single('zip'), function(req, res, next
                         }
                     })
                 });
-            else
+            } else {
                 file.UpdateFile(rows[0].file_id, req.file.destination + '/' + req.file.filename, function(err, rows) {
                     if (err)
                         res.json({ error: err });
                     else
                         res.json({ error: '' });
                 })
+            }
         });
     } else {
         // req.session.file.success = false;

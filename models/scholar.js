@@ -23,6 +23,12 @@ module.exports = {
             callback(err, rows);
         })
     },
+    CheckExist: function(userid, callback) {
+        var sql = `select * from doc where userid = ${userid}`;
+        conn.query(sql, (err, rows, fileids) => {
+            callback(err, rows);
+        })
+    },
     GetScholarFileId: function(userid, callback) {
         var sql = 'select * from doc,user where doc.userid = ? and doc.comment_by = user.userid';
         conn.query(sql, [userid], function(err, rows, fileids) {

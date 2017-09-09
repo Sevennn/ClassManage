@@ -10,8 +10,8 @@ $('#point-btn').click(function() {
         alert("请输入分数");
         return;
     }
-    var str = window.location.search;
-    $.post('/scholar/comment', { point: point, comment: text, userid: str.substr(str.indexOf('=') + 1) }, function(res) {
+    var str = window.location.search.split('&');
+    $.post('/scholar/comment', { point: point, comment: text, userid: str[0].substr(str[0].indexOf('=') + 1) }, function(res) {
         if (res.success) {
             alert("评论成功！");
             location = location;

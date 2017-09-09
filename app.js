@@ -8,6 +8,7 @@ var session = require('express-session');
 var index = require('./routes/index');
 var admin = require('./routes/admin');
 var ejs = require('ejs');
+var FileStore = require('session-file-store')(session);
 var app = express();
 
 // view engine setup
