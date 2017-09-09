@@ -93,7 +93,7 @@ router.get('/userinfo', function(req, res, next) {
 router.post('/checkpsw', function(req, res, next) {
 
     user.UserLogin(req.session.student_id, req.body.password, (err, rows) => {
-        if (err || !user)
+        if (err || !rows)
             res.send(err)
         else
             res.send("pass");

@@ -28,7 +28,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: 'Anon secret',
-    cookie: { maxAge: 600000 }
+    cookie: { maxAge: 60000000 }
 }));
 app.use('/admin', admin);
 app.use('/', index);
