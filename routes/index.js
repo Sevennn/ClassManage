@@ -113,6 +113,8 @@ router.post('/updatepsw', function(req, res, next) {
 router.get('/scholar/judge', function(req, res, next) {
     if (!req.query)
         res.send('error: no query');
+    if (req.session.role != 0)
+        res.send('error: you can\'t do this')
     scholar.GetScholarExamineeInfo(req.query.userid, (err, rows) => {
         console.log(rows);
         if (err)
